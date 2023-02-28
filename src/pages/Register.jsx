@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-const LoginWrapper = styled.div`
+const RegisterWrapper = styled.div`
   background-color: black;
   margin: auto;
   margin-top: 19px;
@@ -120,7 +120,7 @@ function Login() {
     e.preventDefault();
   };
   return (
-    <LoginWrapper>
+    <RegisterWrapper>
       <header>
         <h2>Register</h2>
       </header>
@@ -196,9 +196,9 @@ function Login() {
         {cnfPassErr.length > 0 && (
           <span style={{ color: "#EB455F", fontSize: 10 }}>{cnfPassErr}</span>
         )}
-        <button>Login</button>
+        <button>Register</button>
       </FormGroup>
-    </LoginWrapper>
+    </RegisterWrapper>
   );
 }
 export default Login;
