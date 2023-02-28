@@ -31,7 +31,6 @@ const FormGroup = styled.form`
   button {
     height: 35px;
     background-color: #222222;
-
     border-radius: 3px;
     color: whitesmoke;
     margin-top: 20px;
@@ -51,7 +50,6 @@ function Login() {
 
   const onChangeUserHandler = (e) => {
     const value = e.target.value;
-
     setUser(value);
     console.log(setUser);
     setUserErr("");
