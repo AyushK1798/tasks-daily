@@ -1,61 +1,23 @@
 import { useState } from "react";
 import styled from "styled-components";
+// import Wrapper from "../components/Wrapper";
+import FormField from "../components/FormField";
+import Button from "../components/Button";
+import "../pages/register.css";
 
 const RegisterWrapper = styled.div`
   background-color: black;
   margin: auto;
   margin-top: 19px;
-  height: 650px;
-  width: 350px;
+  height: 700px;
+  width: 400px;
   border-radius: 5px;
-
   header {
     text-align: center;
     font-size: 20px;
   }
 `;
-const FormGroup = styled.form`
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-  input {
-    height: 35px;
-    background-color: transparent;
-    border: 1px solid #54525278;
-    margin-top: 9px;
-    border-radius: 3px;
-    color: whitesmoke;
-  }
-  label {
-    margin-top: 15px;
-  }
-  button {
-    height: 35px;
-    background-color: #222222;
-    border-radius: 3px;
-    color: whitesmoke;
-    margin-top: 20px;
-    font-size: 15px;
-    border: none;
-  }
-  button:hover {
-    background-color: #000;
-    border: 1px solid #fff;
-  }
-`;
-const GenderSelector = styled.div`
-  display: flex;
-  flex-direction: column;
-  select {
-    margin-top: 9px;
-    width: 50%;
-    background-color: transparent;
-    color: whitesmoke;
-    border-radius: 5px;
-    height: 35px;
-    border: 1px solid #54525278;
-  }
-`;
+
 function Login() {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
@@ -95,26 +57,32 @@ function Login() {
     setLastNameErr("");
   };
   const onSubmitHandler = (e) => {
-    const isUser = user.trim() === "";
-    const isPass = pass.trim() === "";
-    const isFirstName = firstName.trim() === "";
-    const isLastName = lastName.trim() === "";
-    const isCnfPass = cnfPass.trim() === "";
+    // const isUser = user.trim() === "";
+    // const isPass = pass.trim() === "";
+    // const isFirstName = firstName.trim() === "";
+    // const isLastName = lastName.trim() === "";
+    // const isCnfPass = cnfPass.trim() === "";
 
-    if (isUser) {
+    if (!user) {
       setUserErr("Please Enter Your Username");
+    } else if (user.length < 5) {
+      setUserErr("Username should have at least 5 characters");
     }
-    if (isFirstName) {
+    if (!firstName) {
       setFirstNameErr("please Enter Your Firstname");
     }
-    if (isLastName) {
+    if (!lastName) {
       setLastNameErr("Please Enter Your Lastname");
     }
-    if (isPass) {
+    if (!pass) {
       setPassErr("Please Enter New Password");
+    } else if (user.length < 5) {
+      setPassErr("Password Should have at least 5 characters");
     }
-    if (isCnfPass) {
-      setCnfPassErr("Please confirm Password");
+    if (!cnfPass) {
+      setCnfPassErr("Please Re-Enter Password");
+    } else if (pass !== cnfPass) {
+      setCnfPassErr("Password Doesn't Match");
     }
 
     e.preventDefault();
@@ -124,80 +92,63 @@ function Login() {
       <header>
         <h2>Register</h2>
       </header>
-
-      <FormGroup onSubmit={onSubmitHandler}>
-        <label For="username">Username</label>
-        <input
+      <form onSubmit={onSubmitHandler}>
+        <FormField
+          title="Username"
           type="text"
-          placeholder="username"
-          value={user}
+          placeholder="Username"
           id="username"
+          value={user}
           onChange={onChangeUserHandler}
+          error={userErr}
         />
-        {userErr.length > 0 && (
-          <span style={{ color: "#EB455F", fontSize: 10 }}>{userErr}</span>
-        )}
-        <label for="firstname">Firstname</label>
-        <input
+        <FormField
+          title="Firstname"
           type="text"
-          placeholder="firstname"
-          id="firstname"
+          placeholder="Firstname"
+          id="Firstname"
           value={firstName}
           onChange={onChangeFirstNameHandler}
+          error={firstNameErr}
         />
-        {firstNameErr.length > 0 && (
-          <span style={{ color: "#EB455F", fontSize: 10 }}>{firstNameErr}</span>
-        )}
-        <label for="lastname">Lastname</label>
-        <input
+        <FormField
+          title="Lastname"
           type="text"
-          placeholder="lastname"
-          id="lastname"
+          placeholder="Lastname"
+          id="Lastname"
           value={lastName}
           onChange={onChangeLastNameHandler}
+          error={lastNameErr}
         />
-        {lastNameErr.length > 0 && (
-          <span style={{ color: "#EB455F", fontSize: 10 }}>{lastNameErr}</span>
-        )}
-        <GenderSelector>
-          <label>Gender</label>
-          <select name="Gender">
-            <option className="option" value="Male">
-              Male
-            </option>
-            <option className="option" value="Female">
-              Female
-            </option>
-            <option className="option" value="Others">
-              Others
-            </option>
+        <div className="select">
+          <select name="slct" id="slct">
+            <option value="0">Gender:</option>
+            <option value="1">Male</option>
+            <option value="2">Female</option>
+            <option value="3">Others</option>
           </select>
-        </GenderSelector>
+        </div>
 
-        <label for="password">Password</label>
-        <input
-          type="passowrd"
-          placeholder="password"
-          id="password"
+        <FormField
+          title="Password"
+          type="Password"
+          placeholder="Password"
+          id="Password"
           value={pass}
           onChange={onChangePassHandler}
+          error={passErr}
         />
-        {passErr.length > 0 && (
-          <span style={{ color: "#EB455F", fontSize: 10 }}>{passErr}</span>
-        )}
-        <label for="cnfPassword">Confirm Password</label>
-        <input
+        <FormField
+          title="Confirm Password"
           type="password"
-          placeholder="Confirm Password"
-          id="cnfPassword"
+          placeholder="Re-Enter your Password"
+          id="Password"
           value={cnfPass}
           onChange={onChangeCnfPassHandler}
+          error={cnfPassErr}
         />
-        {cnfPassErr.length > 0 && (
-          <span style={{ color: "#EB455F", fontSize: 10 }}>{cnfPassErr}</span>
-        )}
-        <button>Register</button>
-      </FormGroup>
+        <Button btnName="Register" />
+      </form>
     </RegisterWrapper>
   );
 }

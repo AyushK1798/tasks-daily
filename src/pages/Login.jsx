@@ -1,47 +1,8 @@
 import { useState } from "react";
-import styled from "styled-components";
+import Button from "../components/Button";
+import FormField from "../components/FormField";
+import Wrapper from "../components/Wrapper";
 
-const LoginWrapper = styled.div`
-  background-color: black;
-  margin: auto;
-  margin-top: 180px;
-  height: 325px;
-  width: 22%;
-  border-radius: 5px;
-  header {
-    text-align: center;
-    font-size: 20px;
-  }
-`;
-const FormGroup = styled.form`
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-  input {
-    height: 35px;
-    background-color: transparent;
-    border: 1px solid #54525278;
-    margin-top: 9px;
-    border-radius: 3px;
-    color: whitesmoke;
-  }
-  label {
-    margin-top: 15px;
-  }
-  button {
-    height: 35px;
-    background-color: #222222;
-    border-radius: 3px;
-    color: whitesmoke;
-    margin-top: 20px;
-    font-size: 15px;
-    border: none;
-  }
-  button:hover {
-    background-color: #000;
-    border: 1px solid #fff;
-  }
-`;
 function Login() {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
@@ -72,37 +33,32 @@ function Login() {
     e.preventDefault();
   };
   return (
-    <LoginWrapper>
-      <header>
-        <h2>Login</h2>
-      </header>
-
-      <FormGroup onSubmit={onSubmitHandler}>
-        <label For="username">Username</label>
-        <input
+    <Wrapper pageName="Login">
+      <form onSubmit={onSubmitHandler}>
+        <FormField
+          title="Username"
           type="text"
-          placeholder="username"
+          placeholder="Username"
           value={user}
-          id="username"
+          id="userName"
           onChange={onChangeUserHandler}
+          error={userErr}
         />
-        {userErr.length > 0 && (
-          <span style={{ color: "#EB455F", fontSize: 10 }}>{userErr}</span>
-        )}
-        <label for="password">Password</label>
-        <input
+        <FormField
+          title="Password"
           type="password"
-          placeholder="password"
-          id="password"
+          placeholder="Password"
           value={pass}
+          id="password"
           onChange={onChangePassHandler}
+          error={passErr}
         />
-        {passErr.length > 0 && (
-          <span style={{ color: "#EB455F", fontSize: 10 }}>{passErr}</span>
-        )}
-        <button>Login</button>
-      </FormGroup>
-    </LoginWrapper>
+        <Button btnName="Login" />
+      </form>
+      <p>
+        Don't Have an Account <a href="/register"> Register</a>
+      </p>
+    </Wrapper>
   );
 }
 export default Login;
