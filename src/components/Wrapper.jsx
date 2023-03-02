@@ -4,7 +4,7 @@ const LoginWrapper = styled.div`
   background-color: black;
   margin: auto;
   margin-top: 180px;
-  height: 325px;
+  height: 400px;
   width: 22%;
   border-radius: 5px;
   header {

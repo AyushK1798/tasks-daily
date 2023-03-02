@@ -1,59 +1,52 @@
-import { useState } from "react";
-import Button from "../components/Button";
 import FormField from "../components/FormField";
 import Wrapper from "../components/Wrapper";
+import { useFormik } from "formik";
+import ButtonWrapper from "../components/ButtonWrapper";
+import { formSchema } from "../schemas/formSchema";
+
+const initialValues = {
+  username: "",
+  password: "",
+};
 
 function Login() {
-  const [user, setUser] = useState("");
-  const [pass, setPass] = useState("");
-  const [userErr, setUserErr] = useState("");
-  const [passErr, setPassErr] = useState("");
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: formSchema,
+      onSubmit: (values) => {
+        console.log(values);
+      },
+    });
 
-  const onChangeUserHandler = (e) => {
-    const value = e.target.value;
-    setUser(value);
-    console.log(setUser);
-    setUserErr("");
-  };
-  const onChangePassHandler = (e) => {
-    const value = e.target.value;
-    setPass(value);
-    console.log(setPass);
-    setPassErr("");
-  };
-  const onSubmitHandler = (e) => {
-    const isUser = user.trim() === "";
-    const isPass = pass.trim() === "";
-    if (isUser) {
-      setUserErr("Please enter Your Username");
-    }
-    if (isPass) {
-      setPassErr("please Enter Your Password");
-    }
-    e.preventDefault();
-  };
   return (
     <Wrapper pageName="Login">
-      <form onSubmit={onSubmitHandler}>
+      <form onSubmit={handleSubmit}>
         <FormField
           title="Username"
           type="text"
           placeholder="Username"
-          value={user}
-          id="userName"
-          onChange={onChangeUserHandler}
-          error={userErr}
+          value={values.username}
+          id="username"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          name="username"
+          error={errors.username}
+          touch={touched.username}
         />
         <FormField
           title="Password"
           type="password"
           placeholder="Password"
-          value={pass}
+          value={values.password}
           id="password"
-          onChange={onChangePassHandler}
-          error={passErr}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          name="password"
+          error={errors.password}
+          touch={touched.password}
         />
-        <Button btnName="Login" />
+        <ButtonWrapper title="Login" />
       </form>
       <p>
         Don't Have an Account <a href="/register"> Register</a>

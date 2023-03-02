@@ -19,17 +19,19 @@ const Div = styled.div`
 function FormField(props) {
   return (
     <Div>
-      <label For="username">{props.title}</label>
+      <label>{props.title}</label>
       <input
         type={props.type}
         placeholder={props.placeholder}
         value={props.value}
         id={props.id}
         onChange={props.onChange}
+        name= {props.name}
+        onBlur={props.onBlur}
       />
-      {props.error.length > 0 && (
+      {props.error && props.touch ? (
         <span style={{ color: "#EB455F", fontSize: 10 }}>{props.error}</span>
-      )}
+      ): null }
     </Div>
   );
 }

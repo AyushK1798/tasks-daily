@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Btn = styled.div`
+const ButtonStyle = styled.div`
   button {
     width: 95%;
     margin-left: 9px;
@@ -18,11 +18,11 @@ const Btn = styled.div`
   }
 `;
 
-function Button(props) {
+function ButtonWrapper(props) {
   return (
-    <Btn>
-      <button>{props.btnName}</button>
-    </Btn>
+    <ButtonStyle>
+      <button type="submit">{props.title}</button>
+    </ButtonStyle>
   );
 }
-export default Button;
+export default ButtonWrapper;

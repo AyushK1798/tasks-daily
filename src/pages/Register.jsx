@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useFormik } from "formik";
 import styled from "styled-components";
 // import Wrapper from "../components/Wrapper";
 import FormField from "../components/FormField";
-import Button from "../components/Button";
+import Button from "../components/ButtonWrapper";
 import "../pages/register.css";
+import { formSchema } from "../schemas/formSchema";
 
 const RegisterWrapper = styled.div`
   background-color: black;
@@ -18,107 +19,63 @@ const RegisterWrapper = styled.div`
   }
 `;
 
+const initialValues = {
+  username: "",
+  firstname: "",
+  lastname: "",
+  confirmPassword: "",
+  password: "",
+};
 function Login() {
-  const [user, setUser] = useState("");
-  const [pass, setPass] = useState("");
-  const [cnfPass, setCnfPass] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [userErr, setUserErr] = useState("");
-  const [passErr, setPassErr] = useState("");
-  const [cnfPassErr, setCnfPassErr] = useState("");
-  const [firstNameErr, setFirstNameErr] = useState("");
-  const [lastNameErr, setLastNameErr] = useState("");
-
-  const onChangeUserHandler = (e) => {
-    const value = e.target.value;
-    setUser(value);
-    console.log(setUser);
-    setUserErr("");
-  };
-  const onChangePassHandler = (e) => {
-    const value = e.target.value;
-    setPass(value);
-    setPassErr("");
-  };
-  const onChangeFirstNameHandler = (e) => {
-    const value = e.target.value;
-    setFirstName(value);
-    setFirstNameErr("");
-  };
-  const onChangeCnfPassHandler = (e) => {
-    const value = e.target.value;
-    setCnfPass(value);
-    setCnfPassErr("");
-  };
-  const onChangeLastNameHandler = (e) => {
-    const value = e.target.value;
-    setLastName(value);
-    setLastNameErr("");
-  };
-  const onSubmitHandler = (e) => {
-    // const isUser = user.trim() === "";
-    // const isPass = pass.trim() === "";
-    // const isFirstName = firstName.trim() === "";
-    // const isLastName = lastName.trim() === "";
-    // const isCnfPass = cnfPass.trim() === "";
-
-    if (!user) {
-      setUserErr("Please Enter Your Username");
-    } else if (user.length < 5) {
-      setUserErr("Username should have at least 5 characters");
-    }
-    if (!firstName) {
-      setFirstNameErr("please Enter Your Firstname");
-    }
-    if (!lastName) {
-      setLastNameErr("Please Enter Your Lastname");
-    }
-    if (!pass) {
-      setPassErr("Please Enter New Password");
-    } else if (user.length < 5) {
-      setPassErr("Password Should have at least 5 characters");
-    }
-    if (!cnfPass) {
-      setCnfPassErr("Please Re-Enter Password");
-    } else if (pass !== cnfPass) {
-      setCnfPassErr("Password Doesn't Match");
-    }
-
-    e.preventDefault();
-  };
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema:formSchema,
+      onSubmit: (values) => {
+        console.log(values)
+      },
+    });
   return (
     <RegisterWrapper>
       <header>
         <h2>Register</h2>
       </header>
-      <form onSubmit={onSubmitHandler}>
+      <form onSubmit={handleSubmit}>
         <FormField
           title="Username"
           type="text"
           placeholder="Username"
           id="username"
-          value={user}
-          onChange={onChangeUserHandler}
-          error={userErr}
+          name="username"
+          value={values.username}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.username}
+          touch={touched.username}
         />
         <FormField
           title="Firstname"
           type="text"
           placeholder="Firstname"
           id="Firstname"
-          value={firstName}
-          onChange={onChangeFirstNameHandler}
-          error={firstNameErr}
+          name="firstname"
+          value={values.firstname}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.firstname}
+          touch={touched.firstname}
         />
         <FormField
           title="Lastname"
           type="text"
           placeholder="Lastname"
-          id="Lastname"
-          value={lastName}
-          onChange={onChangeLastNameHandler}
-          error={lastNameErr}
+          id="lastname"
+          name="lastname"
+          value={values.lastname}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.lastname}
+          touch={touched.lastname}
         />
         <div className="select">
           <select name="slct" id="slct">
@@ -133,21 +90,27 @@ function Login() {
           title="Password"
           type="Password"
           placeholder="Password"
-          id="Password"
-          value={pass}
-          onChange={onChangePassHandler}
-          error={passErr}
+          id="password"
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.password}
+          touch={touched.password}
         />
         <FormField
           title="Confirm Password"
           type="password"
           placeholder="Re-Enter your Password"
-          id="Password"
-          value={cnfPass}
-          onChange={onChangeCnfPassHandler}
-          error={cnfPassErr}
+          id="confirmPassword"
+          name="confirmPassword"
+          value={values.confirmPassword}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.confirmPassword}
+          touch={touched.confirmPassword}
         />
-        <Button btnName="Register" />
+        <Button title="Register" />
       </form>
     </RegisterWrapper>
   );
