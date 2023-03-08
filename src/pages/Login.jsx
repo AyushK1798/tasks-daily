@@ -1,8 +1,16 @@
-import FormField from "../components/FormField";
-import Wrapper from "../components/Wrapper";
+import FormField from "../components/Form_Components/FormField";
+import CardStyle from "../components/Form_Components/CardStyle";
 import { useFormik } from "formik";
-import ButtonWrapper from "../components/ButtonWrapper";
+import ButtonWrapper from "../components/Form_Components/ButtonWrapper";
 import { formSchema } from "../schemas/formSchema";
+import styled from "styled-components";
+
+const Footer = styled.footer`
+  margin: 11px;
+  display: flex;
+  justify-content: center;
+  font-size: 10px;
+`;
 
 const initialValues = {
   username: "",
@@ -20,7 +28,7 @@ function Login() {
     });
 
   return (
-    <Wrapper pageName="Login">
+    <CardStyle pageName="Login">
       <form onSubmit={handleSubmit}>
         <FormField
           title="Username"
@@ -46,12 +54,12 @@ function Login() {
           error={errors.password}
           touch={touched.password}
         />
-        <ButtonWrapper title="Login" />
+        <ButtonWrapper href="/home" title="Login" />
       </form>
-      <p>
+      <Footer>
         Don't Have an Account <a href="/register"> Register</a>
-      </p>
-    </Wrapper>
+      </Footer>
+    </CardStyle>
   );
 }
 export default Login;

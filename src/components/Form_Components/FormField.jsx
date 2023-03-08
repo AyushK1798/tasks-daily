@@ -10,8 +10,9 @@ const Div = styled.div`
     border: 1px solid #54525278;
     margin-top: 9px;
     border-radius: 3px;
-    color: whitesmoke;
+    color: white;
   }
+
   label {
     margin-top: 15px;
   }
@@ -19,19 +20,19 @@ const Div = styled.div`
 function FormField(props) {
   return (
     <Div>
-      <label>{props.title}</label>
+      <label htmlFor={props.id}>{props.title}</label>
       <input
-        type={props.type}
+        type={props.type || "text"}
         placeholder={props.placeholder}
         value={props.value}
         id={props.id}
         onChange={props.onChange}
-        name= {props.name}
+        name={props.name}
         onBlur={props.onBlur}
       />
       {props.error && props.touch ? (
         <span style={{ color: "#EB455F", fontSize: 10 }}>{props.error}</span>
-      ): null }
+      ) : null}
     </Div>
   );
 }

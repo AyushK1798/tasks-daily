@@ -1,24 +1,40 @@
 import { useFormik } from "formik";
 import styled from "styled-components";
 // import Wrapper from "../components/Wrapper";
-import FormField from "../components/FormField";
-import Button from "../components/ButtonWrapper";
-import "../pages/register.css";
+import FormField from "../components/Form_Components/FormField";
+import Button from "../components/Form_Components/ButtonWrapper";
+import CardStyle from "../components/Form_Components/CardStyle";
 import { formSchema } from "../schemas/formSchema";
 
-const RegisterWrapper = styled.div`
-  background-color: black;
-  margin: auto;
-  margin-top: 19px;
-  height: 700px;
-  width: 400px;
-  border-radius: 5px;
-  header {
-    text-align: center;
-    font-size: 20px;
+const GenderField = styled.div`
+  margin: 10px;
+
+  div {
+    display: flex;
+    label,
+    input {
+      margin-top: 9px;
+      cursor: pointer;
+    }
+    input {
+      margin-right: 30px;
+      font-size: 50px;
+      height: 1.2rem;
+      width: 1.2rem;
+    }
+    label {
+      margin-right: 5px;
+      font-size: 13px;
+    }
   }
 `;
 
+const Footer = styled.footer`
+  margin: 11px;
+  display: flex;
+  justify-content: center;
+  font-size: 10px;
+`;
 const initialValues = {
   username: "",
   firstname: "",
@@ -30,17 +46,14 @@ function Login() {
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
       initialValues,
-      validationSchema:formSchema,
+      validationSchema: formSchema,
       onSubmit: (values) => {
-        console.log(values)
+        console.log(values);
       },
     });
   return (
-    <RegisterWrapper>
-      <header>
-        <h2>Register</h2>
-      </header>
-      <form onSubmit={handleSubmit}>
+    <CardStyle pageName="Register" fullWidth>
+    <form onSubmit={handleSubmit}>
         <FormField
           title="Username"
           type="text"
@@ -77,14 +90,20 @@ function Login() {
           error={errors.lastname}
           touch={touched.lastname}
         />
-        <div className="select">
-          <select name="slct" id="slct">
-            <option value="0">Gender:</option>
-            <option value="1">Male</option>
-            <option value="2">Female</option>
-            <option value="3">Others</option>
-          </select>
-        </div>
+
+        <GenderField>
+          <p style={{ margin: "16px 0 0" }}>Gender</p>
+          <div>
+            <label for="male">Male</label>
+            <input type="radio" name="gender" id="male" value="male" />
+
+            <label for="female">Female</label>
+            <input type="radio" name="gender" id="female" value="female" />
+
+            <label for="others">Others</label>
+            <input type="radio" name="gender" id="others" value="others" />
+          </div>
+        </GenderField>
 
         <FormField
           title="Password"
@@ -110,9 +129,12 @@ function Login() {
           error={errors.confirmPassword}
           touch={touched.confirmPassword}
         />
-        <Button title="Register" />
+        <Button href="/login" title="Register" />
       </form>
-    </RegisterWrapper>
+      <Footer>
+        Already have An Account ? <a href="/login"> Login</a>
+      </Footer>
+    </CardStyle>
   );
 }
 export default Login;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 const ButtonStyle = styled.div`
   button {
     width: 95%;
-    margin-left: 9px;
+    margin:10px;
     height: 35px;
     background-color: #222222;
     border-radius: 3px;
@@ -16,12 +16,16 @@ const ButtonStyle = styled.div`
     background-color: #000;
     border: 1px solid #fff;
   }
+  button a{
+    color: white;
+    text-decoration: none;
+  }
 `;
 
 function ButtonWrapper(props) {
   return (
     <ButtonStyle>
-      <button type="submit">{props.title}</button>
+      <button type="submit"><a href={props.href}>{props.title}</a></button>
     </ButtonStyle>
   );
 }
