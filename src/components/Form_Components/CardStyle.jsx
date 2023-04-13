@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 const Card = styled.div`
-  width: ${(p) => (p.fullWidth ? "500px" : "350px")};
+  width: ${(p) => (p.fullWidth ? "400px" : "350px")};
   display: flex;
   flex-direction: column;
   margin: auto;
-  height: ${(p) => (p.fullWidth ? "140vh" : "100vh")};
+  min-height: ${(p) => (p.fullWidth ? "120vh" : "80vh")};
   justify-content: center;
 `;
 
@@ -24,7 +24,7 @@ const FormWrapper = styled.div`
 
 function CardStyle(props) {
   return (
-    <div style={{backgroundColor: "#eadbfc"}}>
+    <div>
       <Card fullWidth={props.fullWidth}>
         <FormWrapper>
           <header>

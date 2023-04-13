@@ -25,7 +25,7 @@ const ButtonStyle = styled.div`
 function ButtonWrapper(props) {
   return (
     <ButtonStyle>
-      <button type="submit"><a href={props.href}>{props.title}</a></button>
+      <button type="submit" onClick={props.onClick}><a href={props.href}>{props.title}</a></button>
     </ButtonStyle>
   );
 }
